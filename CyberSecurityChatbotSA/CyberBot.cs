@@ -81,17 +81,28 @@ _________        ___.                                                  .__  __  
             Console.WriteLine("(Type 'exit' to quit)\n");
 
             Dictionary<List<string>, string> awarenessTips = new Dictionary<List<string>, string>
-    {
-        { new List<string> { "phishing", "phish", "scam email" }, "Phishing is when attackers trick you into giving up personal information (like passwords or credit card numbers) by pretending to be someone you trust—often through fake emails or websites." },
-        { new List<string> { "password", "passwords", "strong password" }, "Always use strong, unique passwords for each account. A strong password includes a mix of letters, numbers, and special characters, and avoids personal information. In addtion, it must be at lease 8 characters long." },
-        { new List<string> { "2fa", "two factor", "two-factor", "multi-factor" }, "2FA adds an extra layer of protection by requiring something you know (like a password) and something you have (like a code sent to your phone) before you can log in." },
-        { new List<string> { "malware", "virus", "trojan", "spyware" }, "Malware is malicious software designed to damage or gain unauthorized access to your computer system. It includes viruses, trojans, spyware, and more." },
-        { new List<string> { "ransomware", "data locked", "encrypted files" }, "Ransomware is a type of malware that encrypts your files and demands payment (a ransom) to unlock them. Never pay the ransom—report the attack instead." },
-        { new List<string> { "firewall", "network protection" }, "A firewall acts as a protective barrier between your device and the internet, blocking unauthorized access while allowing safe communication." },
-        { new List<string> { "vpn", "virtual private network", "secure connection" }, "A VPN encrypts your internet connection to keep your data private—especially when using public Wi-Fi or unsecured networks." },
-        { new List<string> { "social engineering", "manipulation", "human attack" }, "Social engineering is the use of manipulation to trick people into giving away confidential information. It targets human psychology rather than system vulnerabilities." },
-        { new List<string> { "antivirus", "antimalware", "security software" }, "Antivirus (or antimalware) software helps detect, block, and remove malicious threats from your system. Always keep it up to date for the best protection." }
-    };
+   
+            {
+        
+                { new List<string> { "phishing", "phish", "scam email" }, "Phishing is when attackers trick you into giving up personal information (like passwords or credit card numbers) by pretending to be someone you trust—often through fake emails or websites." },
+       
+                { new List<string> { "password", "passwords", "strong password" }, "Always use strong, unique passwords for each account. A strong password includes a mix of letters, numbers, and special characters, and avoids personal information. In addtion, it must be at lease 8 characters long." },
+       
+                { new List<string> { "2fa", "two factor", "two-factor", "multi-factor" }, "2FA adds an extra layer of protection by requiring something you know (like a password) and something you have (like a code sent to your phone) before you can log in." },
+       
+                { new List<string> { "malware", "virus", "trojan", "spyware" }, "Malware is malicious software designed to damage or gain unauthorized access to your computer system. It includes viruses, trojans, spyware, and more." },
+        
+                { new List<string> { "ransomware", "data locked", "encrypted files" }, "Ransomware is a type of malware that encrypts your files and demands payment (a ransom) to unlock them. Never pay the ransom—report the attack instead." },
+        
+                { new List<string> { "firewall", "network protection" }, "A firewall acts as a protective barrier between your device and the internet, blocking unauthorized access while allowing safe communication." },
+        
+                { new List<string> { "vpn", "virtual private network", "secure connection" }, "A VPN encrypts your internet connection to keep your data private—especially when using public Wi-Fi or unsecured networks." },
+       
+                { new List<string> { "social engineering", "manipulation", "human attack" }, "Social engineering is the use of manipulation to trick people into giving away confidential information. It targets human psychology rather than system vulnerabilities." },
+        
+                { new List<string> { "antivirus", "antimalware", "security software" }, "Antivirus (or antimalware) software helps detect, block, and remove malicious threats from your system. Always keep it up to date for the best protection." }
+   
+            };
 
             do
             {
@@ -156,7 +167,6 @@ _________        ___.                                                  .__  __  
             DisplayBotMessage("Goodbye! Stay cyber-safe.");
         }
 
-        // Reusable method for typing effect and color
         private void DisplayBotMessage(string message)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
