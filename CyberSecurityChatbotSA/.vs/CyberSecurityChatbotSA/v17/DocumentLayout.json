@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|solutionrelative:cyberbot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|c:\\users\\mfundo langelihle\\desktop\\prog. c#\\part 1\\prog6221\\cybersecuritychatbotsa\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -28,7 +28,7 @@
               "RelativeDocumentMoniker": "CyberBot.cs",
               "ToolTip": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\CyberBot.cs",
               "RelativeToolTip": "CyberBot.cs",
-              "ViewState": "AgIAAI8AAAAAAAAAAADwv6cAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAowFwAAADrAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-21T18:54:46.053Z",
               "EditorCaption": ""
@@ -43,8 +43,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T17:05:35.451Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T17:05:35.451Z"
             }
           ]
         }
