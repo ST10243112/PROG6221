@@ -1,0 +1,26 @@
+name: .NET Framework Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install .NET Framework 4.8.1
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '4.8.1'
+
+    - name: Restore NuGet packages
+      run: nuget restore CybersecurityChatbotSA.sln
+
+    - name: Build
+      run: MSBuild.exe CybersecurityChatbotSA.sln /p:Configuration=Release
