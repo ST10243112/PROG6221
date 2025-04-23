@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Media;
+using System.IO;
 
 namespace CyberSecurityChatbotSA
 {
     internal class CyberBot
     {
-        private string userName;
+        private string userName {  get; set; }
 
         public void Launch()
         {
@@ -25,7 +26,7 @@ namespace CyberSecurityChatbotSA
             try
             {
                 SoundPlayer player = new SoundPlayer("Welcome.wav");
-                player.Load();
+                player.Load();//optional 
                 player.PlaySync();
             }
             catch (Exception ex)
@@ -53,17 +54,65 @@ _________        ___.                                                  .__  __  
 
         private void AskForName()
         {
-            while (true)
-            {
-                Console.Write("What’s your name? ");
-                userName = Console.ReadLine();
+            int attempts = 0;
+            const int maxAttempts = 4;
 
-                if (!string.IsNullOrWhiteSpace(userName))
+            while (attempts < maxAttempts)
+            {
+                try
                 {
-                    break;
+                    Console.Write("What’s your name? ");
+                    userName = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(userName))
+                    {
+                        Console.WriteLine("Name CANNOT be empty.");
+                    }
+                    else if (userName.Length <= 1)
+                    {
+                        Console.WriteLine("Name MUST be longer than one character.");
+                    }
+                    else if (userName.Any(char.IsDigit))
+                    {
+                        Console.WriteLine("Name should NOT contain numbers.");
+                    }
+                    else
+                    {
+                        // Valid name
+                        return;
+                    }
+
+                    attempts++;
+                    Console.WriteLine($"Attempt {attempts} of {maxAttempts}\n");
+                    System.Threading.Thread.Sleep(1500); // 1.5-second delay
                 }
-                Console.WriteLine("Please enter a valid name.");
+                catch (IOException ioEx)
+                {
+                    Console.WriteLine($"Input/output error: {ioEx.Message}");
+                    attempts++;
+                    System.Threading.Thread.Sleep(1500);
+                }
+                catch (OutOfMemoryException memEx)
+                {
+                    Console.WriteLine($"Memory error: {memEx.Message}");
+                    Environment.Exit(1); // Graceful exit due to serious error
+                }
+                catch (ArgumentOutOfRangeException argEx)
+                {
+                    Console.WriteLine($"Unexpected error: {argEx.Message}");
+                    attempts++;
+                    System.Threading.Thread.Sleep(1500);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    attempts++;
+                    System.Threading.Thread.Sleep(1500);
+                }
             }
+
+            Console.WriteLine("Too many invalid attempts or errors. Shutting down for security.");
+            Environment.Exit(0);
         }
 
         private void GreetUser()
@@ -84,23 +133,23 @@ _________        ___.                                                  .__  __  
    
             {
         
-                { new List<string> { "phishing", "phish", "scam email" }, "Phishing is when attackers trick you into giving up personal information (like passwords or credit card numbers) by pretending to be someone you trust—often through fake emails or websites." },
+                { new List<string> { "phishing", "phish", "scam email" }, "Phishing is when attackers trick you into giving up personal information (like passwords or credit card numbers) by pretending to be someone you trust—often through fake emails or websites (Ciampa, 2021)." },
        
-                { new List<string> { "password", "passwords", "strong password" }, "Always use strong, unique passwords for each account. A strong password includes a mix of letters, numbers, and special characters, and avoids personal information. In addtion, it must be at lease 8 characters long." },
+                { new List<string> { "password", "passwords", "strong password" }, "Always use strong, unique passwords for each account. A strong password includes a mix of letters, numbers, and special characters, and avoids personal information. In addtion, it must be at lease 8 characters long (Ciampa, 2021)." },
        
-                { new List<string> { "2fa", "two factor", "two-factor", "multi-factor" }, "2FA adds an extra layer of protection by requiring something you know (like a password) and something you have (like a code sent to your phone) before you can log in." },
+                { new List<string> { "2fa", "two factor", "two-factor", "multi-factor" }, "2FA adds an extra layer of protection by requiring something you know (like a password) and something you have (like a code sent to your phone) before you can log in (Ciampa, 2021)." },
        
-                { new List<string> { "malware", "virus", "trojan", "spyware" }, "Malware is malicious software designed to damage or gain unauthorized access to your computer system. It includes viruses, trojans, spyware, and more." },
+                { new List<string> { "malware", "virus", "trojan", "spyware" }, "Malware is malicious software designed to damage or gain unauthorized access to your computer system. It includes viruses, trojans, spyware, and more (Ciampa, 2021)." },
         
-                { new List<string> { "ransomware", "data locked", "encrypted files" }, "Ransomware is a type of malware that encrypts your files and demands payment (a ransom) to unlock them. Never pay the ransom—report the attack instead." },
+                { new List<string> { "ransomware", "data locked", "encrypted files" }, "Ransomware is a type of malware that encrypts your files and demands payment (a ransom) to unlock them. Never pay the ransom—report the attack instead (Ciampa, 2021)." },
         
-                { new List<string> { "firewall", "network protection" }, "A firewall acts as a protective barrier between your device and the internet, blocking unauthorized access while allowing safe communication." },
+                { new List<string> { "firewall", "network protection" }, "A firewall acts as a protective barrier between your device and the internet, blocking unauthorized access while allowing safe communication (Ciampa, 2021)." },
         
-                { new List<string> { "vpn", "virtual private network", "secure connection" }, "A VPN encrypts your internet connection to keep your data private—especially when using public Wi-Fi or unsecured networks." },
+                { new List<string> { "vpn", "virtual private network", "secure connection" }, "A VPN encrypts your internet connection to keep your data private—especially when using public Wi-Fi or unsecured networks (Ciampa, 2021)." },
        
-                { new List<string> { "social engineering", "manipulation", "human attack" }, "Social engineering is the use of manipulation to trick people into giving away confidential information. It targets human psychology rather than system vulnerabilities." },
+                { new List<string> { "social engineering", "manipulation", "human attack" }, "Social engineering is the use of manipulation to trick people into giving away confidential information. It targets human psychology rather than system vulnerabilities (Ciampa, 2021)." },
         
-                { new List<string> { "antivirus", "antimalware", "security software" }, "Antivirus (or antimalware) software helps detect, block, and remove malicious threats from your system. Always keep it up to date for the best protection." }
+                { new List<string> { "antivirus", "antimalware", "security software" }, "Antivirus (or antimalware) software helps detect, block, and remove malicious threats from your system. Always keep it up to date for the best protection (Ciampa, 2021)." }
    
             };
 
