@@ -43,9 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\NEwRepo\CyberBot.cs">
-      <Link>CyberBot.cs</Link>
-    </Compile>
+    <Compile Include="Cyberbotcs.cs" />
     <Compile Include="ICyberBotFeatures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
