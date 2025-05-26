@@ -3,14 +3,14 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CyberSecurityChatbotSA
 {
-    internal abstract class Robot
+    internal abstract class Robot: User
     {
         public string BotName { get; private set; }
+      
 
         public Robot(string botName)
         {
@@ -77,6 +77,8 @@ namespace CyberSecurityChatbotSA
                 Console.WriteLine("Sound file not found.");
             }
         }
+
+       
 
     }
 }
