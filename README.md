@@ -3,6 +3,7 @@
 This repository contains a C# console-based chatbot application designed to promote cybersecurity awareness. The chatbot features interactive keyword-based conversations, system voice greetings, colored output for better readability, and input validation.
 
 **GitHub Repo Link:**  
+Updated for part 2
 [https://github.com/ST10243112/PROG6221.git](https://github.com/ST10243112/PROG6221.git)
 
 ---

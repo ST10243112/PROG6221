@@ -7,12 +7,15 @@ using System.Media;
 using System.IO;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
+using System.Diagnostics.Eventing.Reader;
 
 namespace CyberSecurityChatbotSA
 {
     internal class CyberBot : Robot, ICyberBotFeatures
     {
         public CyberBot() : base("CyberBot") { }
+
+        User user = new User();
 
         string[] topics =
            {
@@ -32,9 +35,11 @@ namespace CyberSecurityChatbotSA
             PlayVoiceGreeting("Welcome.wav");
             ShowWelcomeMessage();
             AskForName();
-            GreetUser(userName);
+            GreetUser(user.userName);
+            AskForFavouriteTopic();
             ShowCybersecurityTopics();
             StartConversation();
+            
         }
 
         private void ShowWelcomeMessage()
@@ -48,7 +53,6 @@ namespace CyberSecurityChatbotSA
         {
             int attempts = 0;
             const int maxAttempts = 4;
-            User user = new User();
             bool validName = false;
             string validatedName = "No name has been validated";
 
@@ -59,7 +63,7 @@ namespace CyberSecurityChatbotSA
                     Console.Write("What’s your name? ");
                     string input = Console.ReadLine();
 
-                    validatedName = user.AskforName(input);
+                    validatedName = user.AskforNameValidate(input);
                     validName = true;
                     break;
                 }
@@ -101,7 +105,69 @@ namespace CyberSecurityChatbotSA
                 Console.WriteLine("Too many invalid attempts or errors. Shutting down for security.");
                 Environment.Exit(0);
             }
-            userName = validatedName;
+            user.userName = validatedName;
+        }
+        private void AskForFavouriteTopic()
+        {
+            int attempts = 0;
+            const int maxAttempts = 4;
+            bool validtopic = false;
+            string validatedTopic = "No name has been validated";
+
+            while (attempts < maxAttempts)
+            {
+                try
+                {
+                    DisplayBotMessage("What is  your favourite topic related to online safety?");
+                    WriteConsole($"{user.userName}: ", "Green");
+                    string topic  = Console.ReadLine();
+
+                    validatedTopic = user.AskforFavouriteTopicValidate(topic);
+                    
+                    validtopic  = true;
+                    break;
+                    
+                }
+                catch (IOException ioEx)
+                {
+                    Console.WriteLine($"Input/output error: {ioEx.Message}");
+                    attempts++;
+                    System.Threading.Thread.Sleep(1500);
+                }
+                catch (OutOfMemoryException memEx)
+                {
+                    Console.WriteLine($"Memory error: {memEx.Message}");
+                    Environment.Exit(1);
+                }
+                catch (ArgumentOutOfRangeException argEx)
+                {
+                    Console.WriteLine($"Unexpected error: {argEx.Message}");
+                    attempts++;
+                    System.Threading.Thread.Sleep(1500);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    attempts++;
+                    System.Threading.Thread.Sleep(1500);
+                }
+
+
+
+                {
+                    Console.WriteLine($"Attempt {attempts} of {maxAttempts}\n");
+                    System.Threading.Thread.Sleep(1500); // 1.5-second delay
+                }
+
+            }
+            if (!validtopic)
+            {
+
+                Console.WriteLine("Too many invalid attempts or errors. Shutting down for security.");
+                Environment.Exit(0);
+            }
+       
+            user.FavouriteTopic = validatedTopic;
         }
 
         public void ShowCybersecurityTopics()
@@ -127,7 +193,7 @@ namespace CyberSecurityChatbotSA
                 Console.ForegroundColor = ConsoleColor.White; // fallback color
             }
 
-            Console.WriteLine(output);
+            Console.Write(output);
             Console.ResetColor();
         }
 
@@ -137,15 +203,17 @@ namespace CyberSecurityChatbotSA
             WriteConsole("\n================ CyberBot Conversation Zone ================\n", "Yellow");
             Console.WriteLine("(Type 'exit' or 'bye' to quit)\n");
 
-            DisplayBotMessage("What is  your favourite topic related to online safety?");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{userName}: ");
-            Console.ResetColor();
-            string favouriteTopic = Console.ReadLine();
-            User user = new User();
-            user.UpdateFavouriteTopic(favouriteTopic);
+          
 
-            DisplayBotMessage($"You mentioned {user.FavouriteTopic} as your favourite topic. I'll keep that in mind.");
+            //Console.ForegroundColor = ConsoleColor.Green;
+            //Console.Write($"{userName}: ");
+            //Console.ResetColor();
+            // WriteConsole($"{user.userName}: ", "Green");
+          
+
+            DisplayBotMessage($"You mentioned {user.FavouriteTopic} as your favourite topic. I'll keep that in mind." +
+                $"\n What topic would you like to talk about? Or maybe we can talk more about your favorite topic: {user.FavouriteTopic}"
+               );
 
 
             Dictionary<List<string>, List<string>> awarenessTips = new Dictionary<List<string>, List<string>>
@@ -299,33 +367,79 @@ namespace CyberSecurityChatbotSA
                     }
                 }
             };
-
+            bool hasShownFavouriteTopic = false;
             do
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"{userName}: ");
+                Console.Write($"{user.userName}: ");
                 Console.ResetColor();
                 input = Console.ReadLine();
-
-                if (string.IsNullOrWhiteSpace(input))
-                {
-                    ErrorMessage();
-                   // DisplayBotMessage("I didn't catch that. Could you please say something?");
-                    continue;
-                }
-
                 string lowerInput = input.ToLower().Trim();
                 bool foundTip = false;
                 string[] words = lowerInput.Split(new char[] { ' ', '.', ',', '?', '!', ';', ':' }, StringSplitOptions.RemoveEmptyEntries);
                 HashSet<string> displayedTips = new HashSet<string>();
                 Random random = new Random();
 
-                if (lowerInput.ToLower().Trim() != "exit" && lowerInput.ToLower().Trim() != "bye" && lowerInput?.ToLower().Trim() != "Goodbye")
+
+                if (string.IsNullOrWhiteSpace(lowerInput))
                 {
-                    //We exit the loop if sentinel value is entered, and avoid error message and topic being displayed. 
-                    break; 
+                    ErrorMessage();
+                    continue;
+                }
+
+                if (lowerInput.ToLower().Trim() == "exit" && lowerInput.ToLower().Trim() == "bye" && lowerInput?.ToLower().Trim() == "Goodbye")
+                {
+
+                    break;
 
                 }
+
+                string response = SentimentDetection(input);
+                if (response != null)
+                {
+                    DisplayBotMessage(response);
+                }
+
+
+                if (lowerInput.Contains("yes") || lowerInput.Contains("yeah") || lowerInput.Contains("y") && hasShownFavouriteTopic == false)
+                {
+                    string favourite = user.FavouriteTopic.ToLower();
+                    bool matched = false;
+
+                    foreach (var entry in awarenessTips)
+                    {
+                        foreach (var keyword in entry.Key)
+                        {
+                            string lowerKeyword = keyword.ToLower();
+                            bool exactMatch = favourite.Contains(lowerKeyword);
+                            bool fuzzyMatch = LevenshteinDistance(favourite, lowerKeyword) <= 1;
+
+                            if ((exactMatch || fuzzyMatch) && !displayedTips.Contains(lowerKeyword))
+                            {
+                                var possibleResponses = entry.Value;
+                                string selectedResponse = possibleResponses[random.Next(possibleResponses.Count)];
+                                DisplayBotMessage(selectedResponse);
+                                displayedTips.Add(lowerKeyword);
+                                foundTip = true;
+                                matched = true;
+                                hasShownFavouriteTopic = true;
+                                break;
+                            }
+                        }
+
+                        if (matched)
+                            break;
+                    }
+
+                    if (!matched)
+                    {
+
+ 
+                        hasShownFavouriteTopic = true; // call your fallback method if no match found
+                    }
+                }
+                    
+             
                 foreach (var entry in awarenessTips)
                 {
                     foreach (var keyword in entry.Key)
@@ -369,24 +483,29 @@ namespace CyberSecurityChatbotSA
                     if (lowerInput.Contains("how are you"))
                     {
                         DisplayBotMessage("I'm functioning as expected, thanks for asking!");
+                        foundTip = true;
                     }
                     else if (lowerInput.Contains("purpose") || lowerInput.Contains("what do you do"))
                     {
                         DisplayBotMessage("My purpose is to help you learn how to stay safe online.");
+                        foundTip = true;
                     }
                     else if (lowerInput.Contains("what can i ask") || lowerInput.Contains("help"))
                     {
                         DisplayBotMessage("You can ask me about online safety, password tips, phishing scams, or just chat!");
+                        foundTip = true;
                     }
                     else if (lowerInput.Contains("thanks") || lowerInput.Contains("thank you"))
                     {
                         DisplayBotMessage("My pleasure!");
+                        foundTip = true;
                     }
                     else if (lowerInput.Contains("cool"))
                     {
                         DisplayBotMessage("No problem!");
+                        foundTip = true;
                     }
-                    else if (lowerInput != "exit")
+                    else if (lowerInput != "exit" && lowerInput != "bye")
                     {
                         ErrorMessage();
                     }
@@ -403,12 +522,12 @@ namespace CyberSecurityChatbotSA
 
             string[] errorMessagePrompts = {
                  "I didn't quite understand that. Could you please rephrase?",
-                 $"Sorry...{userName}, I don’t have an appropriate response for that.",
+                 $"Sorry...{user.userName}, I don’t have an appropriate response for that.",
                  "Hmm, that’s outside my knowledge base. Want to try asking in a different way?",
-                 $"Apologies, {userName}, I’m still learning and don’t recognize that input yet.",
+                 $"Apologies, {user.userName}, I’m still learning and don’t recognize that input yet.",
                  "That's a tricky one—I don’t have an answer for it just now.",
                  "Oops! That doesn’t match any of my security topics. Want to try a related keyword?",
-                 $"I couldn’t match that to anything specific, {userName}. Can you ask it differently?",
+                 $"I couldn’t match that to anything specific, {user.userName}. Can you ask it differently?",
                  "That might be outside the current topic list. Maybe try something like 'phishing' or 'malware'?",
                  "I’m not sure how to respond to that yet. I’ll get smarter with time!"
              };
@@ -452,6 +571,32 @@ namespace CyberSecurityChatbotSA
 
             return dp[a.Length, b.Length];
         }
+        private string SentimentDetection(string input)
+        {
+            Dictionary<List<string>, List<string>> emotionKeywords = new Dictionary<List<string>, List<string>>
+            
+            {
+                 { new List<string> { "yay", "awesome", "great", "love", "happy" }, new List<string> { "Great!", "I'm glad you are happy!" } },
+                 { new List<string> { "argg", "uhhh", "annoyed", "mad" }, new List<string> { "That sounds frustrating.", "I can tell you are fustrated" } },
+                 { new List<string> { "scared", "worried", "nervous" }, new List<string> { "It's okay to feel that way.", "You're not alone." } },
+             };
 
+            string lowerInput = input.ToLower();
+            Random random = new Random();
+
+            foreach (var entry in emotionKeywords)
+            {
+                foreach (var keyword in entry.Key)
+                {
+                    if (lowerInput.Contains(keyword))
+                    {
+                        var responses = entry.Value;
+                        return responses[random.Next(responses.Count)];
+                    }
+                }
+            }
+
+            return null; 
+        }
     }
 }
