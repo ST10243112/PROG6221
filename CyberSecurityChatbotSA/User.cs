@@ -12,6 +12,7 @@ namespace CyberSecurityChatbotSA
     {
         public string userName { get; set; }
         public  string FavouriteTopic { get;  set; }
+        public string LeastFavouriteTopic { get; set; }
         protected string email { get; set; }
         protected  string role { get; set; }
 
@@ -44,33 +45,7 @@ namespace CyberSecurityChatbotSA
             }
         }
 
-        public string AskforFavouriteTopicValidate(string topic )
-        {
-            if (string.IsNullOrEmpty(topic))
-            {
-                throw new ArgumentNullException("Topic cannot be null or empty.");
-
-            }
-            else if (topic.Length == 1 && topic.Any(char.IsLetter))
-            {
-                throw new ArgumentException("Topic must be longer than 1 character.");
-
-            }
-            else if (topic.All(char.IsDigit))
-            {
-                throw new InvalidOperationException("Topic cannot be a number.");
-            }
-            else
-            {
-                return topic; 
-            }
-
-        }
+     
        
-
-        public bool HashMentionedTopic(string topic)
-        {
-            return mentionedTopics.Contains(topic);
-        }
     }
 }

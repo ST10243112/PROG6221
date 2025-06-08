@@ -19,14 +19,6 @@ namespace CyberSecurityChatbotSA
 
             myDelegate(); // call bot.Launch();  
 
-
-            //You can use action, not parameter no return value
-
-            // Declare and assign the delegate using the below statement 
-            //Action launchDelegate = bot.Launch;
-            // Invoke the method via delegate as follows
-           //  launchDelegate();
-
         }
     }
 }
