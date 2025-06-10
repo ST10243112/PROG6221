@@ -10,17 +10,13 @@ namespace CyberSecurityChatbotSA
 {
     internal class User
     {
-        public string userName { get; set; }
+        public string _userName {  get; set; }
         public  string FavouriteTopic { get;  set; }
         public string LeastFavouriteTopic { get; set; }
-        protected string email { get; set; }
-        protected  string role { get; set; }
-
-        protected HashSet<string> mentionedTopics = new HashSet<string>();
 
         public string AskforNameValidate(string name)
         {
-            
+
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException("Name cannot be null or empty.");
@@ -45,7 +41,6 @@ namespace CyberSecurityChatbotSA
             }
         }
 
-     
-       
+
     }
 }

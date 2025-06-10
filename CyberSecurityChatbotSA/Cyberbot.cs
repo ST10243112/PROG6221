@@ -38,10 +38,10 @@ namespace CyberSecurityChatbotSA
         };
         public void Launch()
         {
-            //PlayVoiceGreeting("Welcome.wav");
+            PlayVoiceGreeting("Welcome.wav");
             ShowWelcomeMessage();
             AskForName();
-            GreetUser(user.userName);
+            GreetUser(user._userName);
             ShowCybersecurityTopics();
             StartCovnersationHeader();
             StartConversation();
@@ -68,7 +68,6 @@ namespace CyberSecurityChatbotSA
                 {
                     Console.Write("What’s your name? ");
                     string input = Console.ReadLine();
-
                     validatedName = user.AskforNameValidate(input);
                     validName = true;
                     break;
@@ -111,7 +110,7 @@ namespace CyberSecurityChatbotSA
                 Console.WriteLine("Too many invalid attempts or errors. Shutting down for security.");
                 Environment.Exit(0);
             }
-            user.userName = validatedName;
+            user._userName = validatedName;
         }
 
         public void ShowCybersecurityTopics()
@@ -335,7 +334,7 @@ namespace CyberSecurityChatbotSA
                 }
             }
 
-            return null; // Not found or all tips already shown
+            return null; 
         }
         private void StartCovnersationHeader()
         {
@@ -349,7 +348,7 @@ namespace CyberSecurityChatbotSA
             do
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"{user.userName}: ");
+                Console.Write($"{user._userName}: ");
                 Console.ResetColor();
                 lowerInput = Console.ReadLine().ToLower().Trim();
                 bool foundTip = false;
@@ -457,12 +456,12 @@ namespace CyberSecurityChatbotSA
 
             string[] errorMessagePrompts = {
                  "I didn't quite understand that. Could you please rephrase?",
-                 $"Sorry...{user.userName}, I don’t have an appropriate response for that.",
+                 $"Sorry...{user._userName}, I don’t have an appropriate response for that.",
                  "Hmm, that’s outside my knowledge base. Want to try asking in a different way?",
-                 $"Apologies, {user.userName}, I’m still learning and don’t recognize that input yet.",
+                 $"Apologies, {user._userName}, I’m still learning and don’t recognize that input yet.",
                  "That's a tricky one—I don’t have an answer for it just now.",
                  "Oops! That doesn’t match any of my security topics. Want to try a related keyword?",
-                 $"I couldn’t match that to anything specific, {user.userName}. Can you ask it differently?",
+                 $"I couldn’t match that to anything specific, {user._userName}. Can you ask it differently?",
                  "That might be outside the current topic list. Maybe try something like 'phishing' or 'malware'?",
                  "I’m not sure how to respond to that yet. I’ll get smarter with time!"
              };
@@ -548,7 +547,7 @@ namespace CyberSecurityChatbotSA
 
         private string GetLeastFavouriteTopicFromCounters()
         {
-            if (topicCounters == null || topicCounters.Count <= 1)
+            if (topicCounters == null || topicCounters.Count == 0)
             {
                 return "You haven't show a least favourite topic yet";
             }
