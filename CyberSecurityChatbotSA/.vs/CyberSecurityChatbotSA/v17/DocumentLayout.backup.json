@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\cyberbot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|c:\\users\\mfundo langelihle\\desktop\\prog. c#\\part 1\\prog6221\\cybersecuritychatbotsa\\cyberbot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|solutionrelative:cyberbot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|c:\\users\\mfundo langelihle\\desktop\\prog. c#\\part 1\\prog6221\\cybersecuritychatbotsa\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\welcomeheadermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|solutionrelative:welcomeheadermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|solutionrelative:user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\icyberbotfeatures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|solutionrelative:icyberbotfeatures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\welcomeheadermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8E689564-177A-4AD8-B5AB-8CE30B2D815C}|CyberSecurityChatbotSA.csproj|solutionrelative:welcomeheadermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -44,14 +44,14 @@
               "RelativeDocumentMoniker": "Cyberbot.cs",
               "ToolTip": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\Cyberbot.cs",
               "RelativeToolTip": "Cyberbot.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKAAAABQAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAQwCgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-02T13:01:27.718Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\User.cs",
               "RelativeDocumentMoniker": "User.cs",
@@ -59,12 +59,11 @@
               "RelativeToolTip": "User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-01T12:06:33.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-01T12:06:33.486Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Robot.cs",
               "DocumentMoniker": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\Robot.cs",
               "RelativeDocumentMoniker": "Robot.cs",
@@ -76,7 +75,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ICyberBotFeatures.cs",
               "DocumentMoniker": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\ICyberBotFeatures.cs",
               "RelativeDocumentMoniker": "ICyberBotFeatures.cs",
@@ -88,19 +87,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "WelcomeHeaderManager.cs",
               "DocumentMoniker": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\WelcomeHeaderManager.cs",
               "RelativeDocumentMoniker": "WelcomeHeaderManager.cs",
               "ToolTip": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\WelcomeHeaderManager.cs",
               "RelativeToolTip": "WelcomeHeaderManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-01T12:06:36.039Z"
+              "WhenOpened": "2025-05-01T12:06:36.039Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Mfundo langelihle\\Desktop\\Prog. C#\\Part 1\\PROG6221\\CyberSecurityChatbotSA\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",

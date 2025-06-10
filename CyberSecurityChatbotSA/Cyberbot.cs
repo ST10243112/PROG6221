@@ -143,184 +143,188 @@ namespace CyberSecurityChatbotSA
         private HashSet<string> displayedTips = new HashSet<string>();
         private int favouriteTipCounter = 0;
         private Dictionary<string, int> topicCounters = new Dictionary<string, int>();
-        private string DictionaryLookup(string TKey)
+        private (KeyValuePair<string, string>?, bool) DictionaryLookupWithTopic(string TKey)
         {
-            Dictionary<List<string>, List<string>> awarenessTips = new Dictionary<List<string>, List<string>>
+            Dictionary<string, Tuple<List<string>, List<string>>> awarenessTips = new Dictionary<string, Tuple<List<string>, List<string>>>
+        
+                {
+                    { "Phishing", Tuple.Create(
+                        new List<string> { "phishing", "phish", "scam email", "scams" },
+                        new List<string>
+                        {
+                            "Phishing is when attackers trick you into giving up personal information (like passwords or credit card numbers) by pretending to be someone you trust—often through fake emails or websites (Ciampa, 2021).",
+                            "Watch out for emails with urgent messages asking you to click on a link or provide credentials.",
+                            "Always verify the sender’s address and never click suspicious links—phishing attacks can look very convincing!"
+                        })
+                    },
 
-            {
+                    { "Password Security", Tuple.Create(
+                        new List<string> { "password", "passwords", "strong password" },
+                        new List<string>
+                        {
+                            "Always use strong, unique passwords for each account. A strong password includes a mix of letters, numbers, and special characters, and avoids personal information. In addition, it must be at least 14 characters long (Ciampa, 2021; Microsoft, 2025).",
+                            "Do not share your password with others. Change it frequently and follow strong password best practices—minimum 14 characters, with complexity.",
+                            "Your password is your first line of defense. Make it long, complex, and memorable—and don’t reuse passwords across sites!"
+                        })
+                    },
 
-              { new List<string> { "phishing", "phish", "scam email", "scams" },
-                     new List<string>{
-                       "Phishing is when attackers trick you into giving up personal information (like passwords or credit card numbers) by pretending to be someone you trust—often through fake emails or websites (Ciampa, 2021).",
-                       "Watch out for emails with urgent messages asking you to click on a link or provide credentials.",
-                       "Always verify the sender’s address and never click suspicious links—phishing attacks can look very convincing!"
-                     }
-              },
+                    { "Two-Factor Authentication", Tuple.Create(
+                        new List<string> { "2fa", "two factor", "two-factor", "multi-factor" },
+                        new List<string>
+                        {
+                            "2FA adds an extra layer of protection by requiring something you know (like a password) and something you have (like a code sent to your phone) before you can log in (Ciampa, 2021).",
+                            "Always enable two-factor authentication (2FA) when available—it significantly reduces the chances of unauthorized access.",
+                            "Multi-factor authentication protects your accounts even if your password gets compromised—use an app or SMS code as the second layer."
+                        })
+                    },
 
+                    { "Malware", Tuple.Create(
+                        new List<string> { "malware", "virus", "trojan", "spyware" },
+                        new List<string>
+                        {
+                            "Malware is malicious software designed to damage or gain unauthorized access to your computer system. It includes viruses, trojans, spyware, and more (Ciampa, 2021).",
+                            "Viruses, trojans, and spyware are all types of malware—keep your software updated to avoid infection.",
+                            "Avoid downloading unknown attachments or software. That’s how malware often enters systems unnoticed."
+                        })
+                    },
 
-              { new List<string> { "password", "passwords", "strong password" },
-                     new List<string> {
-                       "Always use strong, unique passwords for each account. A strong password includes a mix of letters, numbers, and special characters, and avoids personal information. In addition, it must be at least 14 characters long (Ciampa, 2021; Microsoft, 2025).",
-                       "Do not share your password with others. Change it frequently and follow strong password best practices—minimum 14 characters, with complexity.",
-                       "Your password is your first line of defense. Make it long, complex, and memorable—and don’t reuse passwords across sites!"
-                     }
-              },
+                    { "Ransomware", Tuple.Create(
+                        new List<string> { "ransomware", "data locked", "encrypted files" },
+                        new List<string>
+                        {
+                            "Ransomware is a type of malware that encrypts your files and demands payment (a ransom) to unlock them. Never pay the ransom—report the attack instead (Ciampa, 2021).",
+                            "Backup your data regularly—ransomware can lock you out of everything in seconds.",
+                            "Ransomware attacks can cripple entire organizations. Stay protected with strong security hygiene and system backups."
+                        })
+                    },
 
-              { new List<string> { "2fa", "two factor", "two-factor", "multi-factor" },
-                       new List<string> {
-                         "2FA adds an extra layer of protection by requiring something you know (like a password) and something you have (like a code sent to your phone) before you can log in (Ciampa, 2021).",
-                         "Always enable two-factor authentication (2FA) when available—it significantly reduces the chances of unauthorized access.",
-                         "Multi-factor authentication protects your accounts even if your password gets compromised—use an app or SMS code as the second layer."
-                       }
-                },
+                    { "Firewall", Tuple.Create(
+                        new List<string> { "firewall", "network protection" },
+                        new List<string>
+                        {
+                            "A firewall acts as a protective barrier between your device and the internet, blocking unauthorized access while allowing safe communication (Ciampa, 2021).",
+                            "Enable firewalls on your device—they help control traffic and protect against external threats.",
+                            "Firewalls are like gatekeepers for your network, filtering out malicious traffic before it reaches you."
+                        })
+                    },
 
-              { new List<string> { "malware", "virus", "trojan", "spyware" },
-                       new List<string> {
-                        "Malware is malicious software designed to damage or gain unauthorized access to your computer system. It includes viruses, trojans, spyware, and more (Ciampa, 2021).",
-                        "Viruses, trojans, and spyware are all types of malware—keep your software updated to avoid infection.",
-                        "Avoid downloading unknown attachments or software. That’s how malware often enters systems unnoticed."
-                       }
-                },
+                    { "VPN", Tuple.Create(
+                        new List<string> { "vpn", "virtual private network", "secure connection" },
+                        new List<string>
+                        {
+                            "A VPN encrypts your internet connection to keep your data private—especially when using public Wi-Fi or unsecured networks (Ciampa, 2021).",
+                            "Use a VPN when accessing sensitive data over public Wi-Fi. It hides your IP and encrypts your traffic.",
+                            "VPNs help protect your online privacy by masking your IP address and encrypting your data."
+                        })
+                    },
 
+                    { "Social Engineering", Tuple.Create(
+                        new List<string> { "social engineering", "manipulation", "human attack" },
+                        new List<string>
+                        {
+                            "Social engineering is the use of manipulation to trick people into giving away confidential information. It targets human psychology rather than system vulnerabilities (Ciampa, 2021).",
+                            "Attackers often impersonate someone you trust to get information. Always double-check before you act!",
+                            "Don’t be fooled by urgency or authority in messages. Social engineering thrives on pressure and trust."
+                        })
+                    },
 
-                { new List<string> { "ransomware", "data locked", "encrypted files" },
-                    new List<string> {
-                      "Ransomware is a type of malware that encrypts your files and demands payment (a ransom) to unlock them. Never pay the ransom—report the attack instead (Ciampa, 2021).",
-                      "Backup your data regularly—ransomware can lock you out of everything in seconds.",
-                      "Ransomware attacks can cripple entire organizations. Stay protected with strong security hygiene and system backups."
-                    }
-                },
+                    { "Antivirus", Tuple.Create(
+                        new List<string> { "antivirus", "antimalware", "security software" },
+                        new List<string>
+                        {
+                            "Antivirus (or antimalware) software helps detect, block, and remove malicious threats from your system. Always keep it up to date for the best protection (Ciampa, 2021).",
+                            "Set your antivirus software to update automatically and scan regularly.",
+                            "Security software is essential—without it, you're vulnerable to many known threats."
+                        })
+                    },
 
+                    { "Spoofing", Tuple.Create(
+                        new List<string> { "spoofing", "email spoofing", "ip spoofing" },
+                        new List<string>
+                        {
+                            "Spoofing is when an attacker disguises themselves as a trusted source by faking information—like an email address or IP— to trick you into interacting with malicious content or revealing sensitive data (Ciampa, 2021).",
+                            "Email spoofing makes fake emails look real. Always check the sender's full address and headers.",
+                            "IP spoofing is a technique hackers use to hide their real identity and mimic trusted devices."
+                        })
+                    },
 
-                { new List<string> { "firewall", "network protection" },
-                    new List<string> {
-                       "A firewall acts as a protective barrier between your device and the internet, blocking unauthorized access while allowing safe communication (Ciampa, 2021).",
-                       "Enable firewalls on your device—they help control traffic and protect against external threats.",
-                       "Firewalls are like gatekeepers for your network, filtering out malicious traffic before it reaches you."
-                    }
-                },
-
-
-                { new List<string> { "vpn", "virtual private network", "secure connection" },
-                     new List<string> {
-                        "A VPN encrypts your internet connection to keep your data private—especially when using public Wi-Fi or unsecured networks (Ciampa, 2021).",
-                        "Use a VPN when accessing sensitive data over public Wi-Fi. It hides your IP and encrypts your traffic.",
-                        "VPNs help protect your online privacy by masking your IP address and encrypting your data."
-                     }
-                },
-
-
-                { new List<string> { "social engineering", "manipulation", "human attack" },
-                     new List<string> {
-                         "Social engineering is the use of manipulation to trick people into giving away confidential information. It targets human psychology rather than system vulnerabilities (Ciampa, 2021).",
-                         "Attackers often impersonate someone you trust to get information. Always double-check before you act!",
-                         "Don’t be fooled by urgency or authority in messages. Social engineering thrives on pressure and trust."
-
-                     }
-                },
-
-
-                { new List<string> { "antivirus", "antimalware", "security software" },
-                    new List<string> {
-                         "Antivirus (or antimalware) software helps detect, block, and remove malicious threats from your system. Always keep it up to date for the best protection (Ciampa, 2021).",
-                         "Set your antivirus software to update automatically and scan regularly.",
-                         "Security software is essential—without it, you're vulnerable to many known threats."
-
-
-                    }
-                },
-
-
-                { new List<string> { "spoofing", "email spoofing", "ip spoofing" },
-                      new List<string> {
-                         "Spoofing is when an attacker disguises themselves as a trusted source by faking information—like an email address or IP— to trick you into interacting with malicious content or revealing sensitive data (Ciampa, 2021).",
-                         "Email spoofing makes fake emails look real. Always check the sender's full address and headers.",
-                         "IP spoofing is a technique hackers use to hide their real identity and mimic trusted devices."
-                      }
-                },
-
-                 { new List<string> { "shoulder surfing", "watching", "peeking" },
-                       new List<string> {
+                    { "Shoulder Surfing", Tuple.Create(
+                        new List<string> { "shoulder surfing", "watching", "peeking" },
+                        new List<string>
+                        {
                             "Shoulder surfing is a low-tech attack where someone observes your screen or keyboard to steal sensitive information, like PINs or passwords. Always be aware of your surroundings when entering credentials (Ciampa, 2021).",
                             "Cover your screen and keyboard when entering sensitive data in public.",
                             "Watch out for people standing too close when you're entering your password—it could be a shoulder surfer."
+                        })
+                    },
 
-                       }
-                },
-
-
-                 { new List<string> { "social engineering", "baiting" , "impersonation", "pretexting", "engineering" },
-                       new List<string> {
+                    { "Social Engineering (Extended)", Tuple.Create(
+                        new List<string> { "social engineering", "baiting", "impersonation", "pretexting", "engineering" },
+                        new List<string>
+                        {
                             "Never share personal or login information with anyone over email, phone, or chat unless you're absolutely sure of their identity.",
                             "Be cautious of urgent messages or scare tactics that pressure you to act quickly—these are common in phishing and impersonation attacks.",
                             "Always verify suspicious requests through a separate, trusted channel before clicking links or downloading attachments."
+                        })
+                    },
 
-                       }
-                },
+                    { "Software Patching", Tuple.Create(
+                        new List<string> { "patch", "software update", "security update" },
+                        new List<string>
+                        {
+                            "Patching involves updating software to fix security vulnerabilities. Regularly applying patches and updates is critical to keeping systems protected against newly discovered threats (Ciampa, 2021).",
+                            "Outdated software is a hacker’s dream. Always install updates as soon as they’re available.",
+                            "Patches close the doors that attackers could otherwise walk through—don’t skip updates!"
+                        })
+                    },
 
+                    { "Data Breach", Tuple.Create(
+                        new List<string> { "data breach", "breach", "leaked data" },
+                        new List<string>
+                        {
+                            "A data breach occurs when sensitive or confidential information is accessed or exposed without authorization. Breaches can lead to identity theft, financial loss, and reputational damage (Ciampa, 2021).",
+                            "Breached data often ends up on the dark web—watch for alerts and change your credentials if notified.",
+                            "Strong passwords and MFA can reduce the damage of a data breach. Always stay proactive."
+                        })
+                    },
 
-                { new List<string> { "patch", "software update", "security update" },
+                    { "Zero-Day Vulnerability", Tuple.Create(
+                        new List<string> { "zero-day", "0day", "zero day vulnerability" },
+                        new List<string>
+                        {
+                            "A zero-day vulnerability is a security flaw that is unknown to the vendor and has no patch available. Hackers can exploit it before it’s discovered and fixed, making it highly dangerous (Ciampa, 2021).",
+                            "Zero-day exploits are dangerous because there's no defense yet. This is why rapid patching is so important.",
+                            "Zero-day attacks can bypass normal defenses—use multiple layers of security and stay updated."
+                        })
+                    },
 
-                    new List<string> {
-
-                        "Patching involves updating software to fix security vulnerabilities. Regularly applying patches and updates is critical to keeping systems protected against newly discovered threats (Ciampa, 2021).",
-
-                        "Outdated software is a hacker’s dream. Always install updates as soon as they’re available.",
-
-                        "Patches close the doors that attackers could otherwise walk through—don’t skip updates!"
-
+                    { "Invoice Scam", Tuple.Create(
+                        new List<string> { "invoice scam" },
+                        new List<string>
+                        {
+                            "This is where a user clicks on a link from a fictitious website resulting in receiving a fake overdue invoice that demands immediate payment (Ciampa, 2021).",
+                            "Invoice scams pretend to be from a supplier or vendor and push for urgent payment—always verify the request.",
+                            "Don’t trust emailed invoices without double-checking the sender and cross-referencing with your records."
+                        })
                     }
-                },
-
-
-                { new List<string> { "data breach", "breach", "leaked data" },
-
-                    new List<string> {
-                         "A data breach occurs when sensitive or confidential information is accessed or exposed without authorization. Breaches can lead to identity theft, financial loss, and reputational damage (Ciampa, 2021).",
-                         "Breached data often ends up on the dark web—watch for alerts and change your credentials if notified.",
-                         "Strong passwords and MFA can reduce the damage of a data breach. Always stay proactive."
-
-                    }
-                 },
-
-                { new List<string> { "zero-day", "0day", "zero day vulnerability" },
-
-                    new List<string> {
-                         "A zero-day vulnerability is a security flaw that is unknown to the vendor and has no patch available. Hackers can exploit it before it’s discovered and fixed, making it highly dangerous (Ciampa, 2021).",
-                         "Zero-day exploits are dangerous because there's no defense yet. This is why rapid patching is so important.",
-                         "Zero-day attacks can bypass normal defenses—use multiple layers of security and stay updated."
-
-                    }
-                },
-
-
-                { new List<string> { "invoice scam" },
-
-                    new List<string> {
-
-                        "This is where a user clicks on a link from a fictitious website resulting in receiving a fake overdue invoice that demands immediate payment (Ciampa, 2021).",
-
-                        "Invoice scams pretend to be from a supplier or vendor and push for urgent payment—always verify the request.",
-
-                        "Don’t trust emailed invoices without double-checking the sender and cross-referencing with your records."
-
-                    }
-                }
-            };
-
+                };
             string lowerKey = TKey.ToLower().Trim();
             Random random = new Random();
 
             foreach (var entry in awarenessTips)
             {
-                foreach (var keyword in entry.Key)
+                var topic = entry.Key; // e.g. "Phishing"
+                var keywords = entry.Value.Item1;
+                var tips = entry.Value.Item2;
+
+                foreach (var keyword in keywords)
                 {
                     bool isMatch = keyword.Equals(lowerKey, StringComparison.OrdinalIgnoreCase)
                                    || LevenshteinDistance(keyword.ToLower(), lowerKey) <= 1;
 
                     if (isMatch)
                     {
-                        var availableTips = entry.Value
+                        var availableTips = tips
                             .Where(tip => !displayedTips.Contains(tip))
                             .ToList();
 
@@ -328,13 +332,13 @@ namespace CyberSecurityChatbotSA
                         {
                             string selectedTip = availableTips[random.Next(availableTips.Count)];
                             displayedTips.Add(selectedTip);
-                            return selectedTip;
+                            return (new KeyValuePair<string, string>(topic, selectedTip), true);
                         }
                     }
                 }
             }
 
-            return null; 
+            return (null, false);
         }
         private void StartCovnersationHeader()
         {
@@ -377,24 +381,28 @@ namespace CyberSecurityChatbotSA
 
                 foreach (var word in words)
                 {
-                    string tip = DictionaryLookup(word);
-                    if (!string.IsNullOrEmpty(tip))
+                    var (result, _found) = DictionaryLookupWithTopic(word);
+
+                    if (_found && result.HasValue)
                     {
+                        string topicName = result.Value.Key;
+                        string tip = result.Value.Value;
+
                         DisplayBotMessage(tip);
                         foundTip = true;
                         favouriteTipCounter++;
 
-                        // Track topic usage
-                        if (topicCounters.ContainsKey(word))
+                        // Increment using the topic name (e.g. "Phishing")
+                        if (topicCounters.ContainsKey(topicName))
                         {
-                            topicCounters[word]++;
+                            topicCounters[topicName]++;
                         }
                         else
                         {
-                            topicCounters[word] = 1;
+                            topicCounters[topicName] = 1;
                         }
 
-                        break;
+                        continue;
                     }
                 }
 
