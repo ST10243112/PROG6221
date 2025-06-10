@@ -558,12 +558,16 @@ namespace CyberSecurityChatbotSA
             if (topicCounters == null || topicCounters.Count == 0)
             {
                 return "You haven't show a least favourite topic yet";
+            }else
+            if(topicCounters.Count == 1)
+            {
+                return "you have only enquired about one topic";
             }
             if (topicCounters.Count > 1)
             {
                 var leastFavourite = topicCounters.Aggregate((x, y) => x.Value < y.Value ? x : y).Key;
                 user.LeastFavouriteTopic = leastFavourite;
-               
+
             }
             return $"Your least favourite topic is: {user.LeastFavouriteTopic}";
         }
